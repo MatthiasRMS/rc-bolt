@@ -110,7 +110,7 @@ function saveArtboardAsPNG() {
   var artboards = app.activeDocument.artboards;
   var artboardCount = artboards.length;
   var artboardPaths = [];
-  var artboardPath = "~/";
+  var artboardPath = Folder.userData.toString() + "/";
   var artboardName = "";
   var artboard = null;
   var i = 0;
@@ -121,7 +121,7 @@ function saveArtboardAsPNG() {
     var newFile = new File(artboardPath);
     exportArtboardToPNG(app.activeDocument, i, newFile);
     artboardPaths.push(newFile.fsName);
-    artboardPath = "~/";
+    artboardPath = Folder.userData.toString() + "/";
   }
   return artboardPaths;
 }

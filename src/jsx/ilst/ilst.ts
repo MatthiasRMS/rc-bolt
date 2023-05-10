@@ -18,8 +18,9 @@ export function saveArtboardAsPNG() {
   let artboards = app.activeDocument.artboards;
   let artboardCount = artboards.length;
   let artboardPaths = [];
-  let artboardPath = "~/";
+  let artboardPath = Folder.userData.toString() + "/"
   let artboardName = "";
+  
   let artboard = null;
   let i = 0;
 
@@ -30,7 +31,7 @@ export function saveArtboardAsPNG() {
     const newFile = new File(artboardPath);
     exportArtboardToPNG(app.activeDocument, i, newFile);
     artboardPaths.push(newFile.fsName);
-    artboardPath = "~/";
+    artboardPath = Folder.userData.toString() + "/"
   }
 
   return artboardPaths;
