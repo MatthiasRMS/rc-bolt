@@ -11,36 +11,20 @@ import {
 } from "../lib/utils/bolt";
 import "../index.scss";
 
-import { helloWorld } from "../../jsx/ilst/ilst"
 
 const count = ref(0);
 const backgroundColor = ref("#282c34");
 
+const imagePaths = ref([]);
+
 //* Demonstration of Traditional string eval-based ExtendScript Interaction
 const jsxTest = () => {
-  console.log(evalES(`helloWorld("${csi.getApplicationID()}")`));
+  evalTS("saveArtboardAsPNG").then((res) => {
+    alert(res);
+    imagePaths.value = res;
+  });
 };
 
-//* Demonstration of End-to-End Type-safe ExtendScript Interaction
-const jsxTestTS = () => {
-  evalTS("helloStr", "test").then((res) => {
-    console.log(res);
-  });
-  evalTS("helloNum", 1000).then((res) => {
-    console.log(typeof res, res);
-  });
-  evalTS("helloArrayStr", ["ddddd", "aaaaaa", "zzzzzzz"]).then((res) => {
-    console.log(typeof res, res);
-  });
-  evalTS("helloObj", { height: 90, width: 100 }).then((res) => {
-    console.log(typeof res, res);
-    console.log(res.x);
-    console.log(res.y);
-  });
-  evalTS("helloError", "test").catch((e) => {
-    console.log("there was an error", e);
-  });
-};
 
 const nodeTest = () => {
   alert(
@@ -52,7 +36,6 @@ const nodeTest = () => {
 onMounted(() => {
   if (window.cep) {
     subscribeBackgroundColor((c: string) => (backgroundColor.value = c));
-    helloWorld();
   }
 });
 </script>
@@ -62,6 +45,8 @@ onMounted(() => {
     <header class="app-header">
       <img src="../assets/bolt-cep.svg" class="icon" />
       <div class="stack-icons">
+        <img v-for="(image, i) in imagePaths" :key="i" :src="image" />
+        
         <div>
           <img src="../assets/vite.svg" />
           Vite

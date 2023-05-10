@@ -102,10 +102,38 @@ var aeft = /*#__PURE__*/__objectFreeze({
   helloWorld: helloWorld$4
 });
 
-var helloWorld$3 = function helloWorld() {
-  alert("Hello from Illustrator");
-  app.activeDocument.path;
-};
+function helloWorld$3() {
+  alert("Hello World!");
+}
+function saveArtboardAsPNG() {
+  // Iterate over artboards, save them, and return array of paths to images
+  var artboards = app.activeDocument.artboards;
+  var artboardCount = artboards.length;
+  var artboardPaths = [];
+  var artboardPath = "~/";
+  var artboardName = "";
+  var artboard = null;
+  var i = 0;
+  for (i = 0; i < artboardCount; i++) {
+    artboard = artboards[i];
+    artboardName = artboard.name;
+    artboardPath = artboardPath + artboardName + ".png";
+    var newFile = new File(artboardPath);
+    exportArtboardToPNG(app.activeDocument, i, newFile);
+    artboardPaths.push(newFile.fsName);
+    artboardPath = "~/";
+  }
+  return artboardPaths;
+}
+function exportArtboardToPNG(doc, artboardIndex, destFile) {
+  var exportOptions = new ExportOptionsPNG24();
+  exportOptions.artBoardClipping = true;
+  exportOptions.transparency = true;
+  exportOptions.horizontalScale = 100;
+  exportOptions.verticalScale = 100;
+  doc.artboards.setActiveArtboardIndex(artboardIndex);
+  doc.exportFile(destFile, ExportType.PNG24, exportOptions);
+}
 
 var ilst = /*#__PURE__*/__objectFreeze({
   __proto__: null,
@@ -114,7 +142,9 @@ var ilst = /*#__PURE__*/__objectFreeze({
   helloNum: helloNum,
   helloArrayStr: helloArrayStr,
   helloObj: helloObj,
-  helloWorld: helloWorld$3
+  helloWorld: helloWorld$3,
+  saveArtboardAsPNG: saveArtboardAsPNG,
+  exportArtboardToPNG: exportArtboardToPNG
 });
 
 var helloWorld$2 = function helloWorld() {

@@ -49,7 +49,8 @@
     "typescript": "^4.6.4",
     "vite": "^4.0.4",
     "vite-cep-plugin": "^0.3.8",
-    "yarn": "^1.22.17"
+    "yarn": "^1.22.17",
+    "rechain-shared": "*"
   },
   "main": "index.js",
   "license": "MIT"

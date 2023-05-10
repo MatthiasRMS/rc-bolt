@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.json",
+  // "extends": "./tsconfig.json",
   "compilerOptions": {
     "paths": {
       "@esTypes/*": ["./src/js/lib/cep/es-types"]
